@@ -85,6 +85,26 @@ Install a specific version of K3s with `--write-kubeconfig-mode 644` to make the
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.29.6+k3s2 sh -s - --write-kubeconfig-mode 644
 ```
 
+
+### ✅ Install HELM
+
+Install HELM
+
+<!-- shell: helm: install -->
+```bash
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+```
+
+### ✅ Configure HELM
+
+Configure HELM
+
+<!-- shell: helm: Configure -->
+```bash
+echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
+source ~/.bashrc
+```
+
 ### ✅ Install AWX Operator
 
 Clone this repository and change directory.
@@ -98,11 +118,19 @@ cd awx-on-k3s
 git checkout 2.19.1
 ```
 
-Then invoke `kubectl apply -k operator` to deploy AWX Operator.
+Then invoke `kubectl apply -k operator` to Complete the Pre-Requisites for AWX Operator.
 
 <!-- shell: operator: deploy -->
 ```bash
 kubectl apply -k operator
+```
+
+Then invoke below commands to deploy AWX Operator.
+
+<!-- shell: operator: deploy -->
+```bash
+helm repo add awx-operator https://ansible-community.github.io/awx-operator-helm/
+helm install k3s-awx-operator awx-operator/awx-operator --namespace awx
 ```
 
 The AWX Operator will be deployed to the namespace `awx`.
