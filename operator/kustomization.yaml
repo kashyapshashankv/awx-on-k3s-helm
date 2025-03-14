@@ -10,3 +10,6 @@ secretGenerator:
   - name: redhat-operators-pull-secret
     literals:
       - operator=awx
+
+resources:
+  - github.com/ansible/awx-operator/config/default
