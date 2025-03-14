@@ -82,7 +82,7 @@ Install a specific version of K3s with `--write-kubeconfig-mode 644` to make the
 
 <!-- shell: k3s: install -->
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.29.6+k3s2 sh -s - --write-kubeconfig-mode 644
+curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
 ```
 
 
@@ -118,19 +118,12 @@ cd awx-on-k3s
 git checkout 2.19.1
 ```
 
-Then invoke `kubectl apply -k operator` to Complete the Pre-Requisites for AWX Operator.
-
-<!-- shell: operator: deploy -->
-```bash
-kubectl apply -k operator
-```
-
 Then invoke below commands to deploy AWX Operator.
 
 <!-- shell: operator: deploy -->
 ```bash
 helm repo add awx-operator https://ansible-community.github.io/awx-operator-helm/
-helm install k3s-awx-operator awx-operator/awx-operator --namespace awx
+helm install k3s-awx-operator awx-operator/awx-operator --namespace awx --create-namespace
 ```
 
 The AWX Operator will be deployed to the namespace `awx`.
